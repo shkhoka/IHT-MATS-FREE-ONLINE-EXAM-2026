@@ -1,0 +1,128 @@
+javacript
+// Sample Questions for IHT/MATS Test
+const questions = [
+    {
+        question: "১. মানবদেহের সবচেয়ে বড় গ্রন্থি কোনটি?",
+        options: ["যকৃৎ (Liver)", "অগ্ন্যাশয়", "থাইরয়েড", "বৃক্ক"],
+        answer: 0
+    },
+    {
+        question: "২. রক্তের pH এর স্বাভাবিক মাত্রা কত?",
+        options: ["৬.৪", "৭.৪", "৮.০", "৬.৮"],
+        answer: 1
+    },
+    {
+        question: "৩. নিচের কোনটি সংক্রামক রোগ নয়?",
+        options: ["যক্ষ্মা", "ডায়াবেটিস", "বসন্ত", "করোনা"],
+        answer: 1
+    },
+    {
+        question: "৪. ভিটামিন 'সি' এর অভাবে কোন রোগ হয়?",
+        options: ["বেরিবেরি", "স্কারভি", "রিকেটস", "রাতকানা"],
+        answer: 1
+    },
+    {
+        question: "৫. মানুষের ক্রোমোজোম সংখ্যা কত জোড়া?",
+        options: ["২৩ জোড়া", "২২ জোড়া", "২৪ জোড়া", "২৫ জোড়া"],
+        answer: 0
+    }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let userAnswers = [];
+let timerInterval;
+let timeLeft = 300; // 5 minutes in seconds
+
+const regScreen = document.getElementById('reg-screen');
+const examScreen = document.getElementById('exam-screen');
+const resultScreen = document.getElementById('result-screen');
+
+const regForm = document.getElementById('registration-form');
+const questionText = document.getElementById('question-text');
+const optionsContainer = document.getElementById('options-container');
+const nextBtn = document.getElementById('next-btn');
+const qNumber = document.getElementById('q-number');
+const timerDisplay = document.getElementById('timer');
+const finalScore = document.getElementById('final-score');
+const totalScore = document.getElementById('total-score');
+const candidateInfo = document.getElementById('candidate-info');
+
+regForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('student-name').value;
+    candidateInfo.innerText = "শিক্ষার্থীর নাম: " + name;
+    
+    regScreen.classList.remove('active');
+    examScreen.classList.add('active');
+    
+    startTimer();
+    loadQuestion();
+});
+
+function startTimer() {
+    timerInterval = setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        timerDisplay.innerText = `সময়: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            finishExam();
+        }
+        timeLeft--;
+    }, 1000);
+}
+
+function loadQuestion() {
+    let q = questions[currentQuestionIndex];
+    qNumber.innerText = `প্রশ্ন ${currentQuestionIndex + 1} / ${questions.length}`;
+    questionText.innerText = q.question;
+    
+    optionsContainer.innerHTML = '';
+    q.options.forEach((opt, index) => {
+        let li = document.createElement('li');
+        li.className = 'option-item';
+        li.innerHTML = `<label><input type="radio" name="option" value="${index}"> ${opt}</label>`;
+        
+        li.click = function() {
+            li.querySelector('input').checked = true;
+        };
+        
+        optionsContainer.appendChild(li);
+    });
+    
+    if(currentQuestionIndex === questions.length - 1) {
+        nextBtn.innerText = "পরীক্ষা জমা দিন";
+    }
+}
+
+nextBtn.addEventListener('click', function() {
+    let selectedOption = document.querySelector('input[name="option"]:checked');
+    
+    if(!selectedOption) {
+        alert('দয়া করে একটি উত্তর নির্বাচন করুন!');
+        return;
+    }
+
+    let answerValue = parseInt(selectedOption.value);
+    if(answerValue === questions[currentQuestionIndex].answer) {
+        score++;
+    }
+
+    currentQuestionIndex++;
+    if(currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        clearInterval(timerInterval);
+        finishExam();
+    }
+});
+
+function finishExam() {
+    examScreen.classList.remove('active');
+    resultScreen.classList.add('active');
+    finalScore.innerText = score;
+    totalScore.innerText = questions.length;
+}
+

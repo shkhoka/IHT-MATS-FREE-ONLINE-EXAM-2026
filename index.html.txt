@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IHT & MATS Online Admission Test - Rajshahi</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS Link -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- 1. Registration Screen -->
+        <div id="reg-screen" class="screen active">
+            <div class="header">
+                <h1>আইএইচটি ও ম্যাটস ভর্তি প্রস্তুতি পরীক্ষা</h1>
+                <p>বাংলাদেশ ইসলামী ছাত্রশিবির, রাজশাহী মহানগর</p>
+            </div>
+            <form id="registration-form">
+                <div class="form-group">
+                    <label for="student-name">আপনার পূর্ণ নাম:</label>
+                    <input type="text" id="student-name" placeholder="যেমন: আব্দুল্লাহ আল মামুন" required>
+                </div>
+                <div class="form-group">
+                    <label for="student-phone">মোবাইল নম্বর:</label>
+                    <input type="tel" id="student-phone" placeholder="যেমন: 01700000000" required>
+                </div>
+                <button type="submit" class="btn">পরীক্ষা শুরু করুন</button>
+            </form>
+        </div>
+
+        <!-- 2. Exam Screen -->
+        <div id="exam-screen" class="screen">
+            <div class="header">
+                <h1>অনলাইন মডেল টেস্ট</h1>
+            </div>
+            <div class="exam-info">
+                <span id="q-number">প্রশ্ন ১ / ৫</span>
+                <span id="timer">সময়: ১০:০০</span>
+            </div>
+            <div class="question-box">
+                <div class="question-title" id="question-text">এখানে প্রশ্ন প্রদর্শিত হবে...</div>
+                <ul class="options-list" id="options-container">
+                    <!-- Options will load dynamically -->
+                </ul>
+            </div>
+            <div class="exam-footer">
+                <button id="next-btn" class="btn">পরবর্তী প্রশ্ন</button>
+            </div>
+        </div>
+
+        <!-- 3. Result Screen -->
+        <div id="result-screen" class="screen">
+            <div class="result-card">
+                <h2>অভিনন্দন, পরীক্ষা সম্পন্ন হয়েছে!</h2>
+                <p id="candidate-info">শিক্ষার্থীর নাম: </p>
+                <div class="score-box">
+                    আপনার প্রাপ্ত নম্বর: <span id="final-score">০</span> / <span id="total-score">৫</span>
+                </div>
+                <p style="color: #4b5563; margin-bottom: 20px;">আপনার প্রস্তুতি যাচাইয়ের জন্য ধন্যবাদ। বিস্তারিত ফলাফল খুব শীঘ্রই জানিয়ে দেওয়া হবে।</p>
+                <button onclick="location.reload()" class="btn">পুনরায় পরীক্ষা দিন</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom JS Link -->
+    <script src="script.js"></script>
+</body>
+</html>
